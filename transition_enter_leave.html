@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes shake {
+            0%{
+                transform: translateX(-100px);
+            }
+            50%{
+                transform:translateX(-50px);
+            }
+            100%{
+                transform:translateX(0px);
+            }
+        }
+        /* .v-enter-from{
+            opacity: 0;
+        } */
+        
+        /* .v-leave-active{
+            animation: shake 3s ;
+        }
+        .v-enter-active{
+            animation: shake 3s ;
+        } */
+        /* .v-enter-to{
+            opacity: 1;
+        } */
+        /* .v-leave-to{
+            opacity: 0;
+        } */
+        .hello-leave-active{
+            animation: shake 3s ;
+        }
+        .hello-enter-active{
+            animation: shake 3s ;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        //單元素,單組件的入場出場動畫
+        const app = Vue.createApp({
+            data() {
+                return {
+                    show:false
+                }
+            },
+            methods: {
+                handleClick(){
+                    this.show = !this.show
+                }
+            },
+            template:`
+            <transition name="hello">
+                <div v-if="show">hello world</div>
+            </transition>    
+                <button @click="handleClick">切換</button>
+            `
+        });
+        const vm = app.mount('#root');
+    </script>
+</body>
+</html>

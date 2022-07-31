@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        //屬性船值 使用content-abc命名時 接的時候 使用contentAbc 命名
+        //單向數據流概念 子組件可使用父組件傳遞的值 但無法更改傳遞值
+        const app = Vue.createApp({
+            data(){
+                // return {
+                //     params:{
+                //         content:123,
+                //         a:456,
+                //         b:789,
+                //         c:159
+                //     }
+                // }
+                return{
+                    content : 123
+                }
+            },
+            // template:`
+            //     <div><test v-bind="params" /></div>
+            // `
+            template:`<div><test :content-abc="content" /></div>`
+        });
+        app.component('test',{
+            props:['contentAbc'],
+            data(){
+                return{
+                    myCount:this.contentAbc
+                }
+            },
+            template:`<div @click="myCount++">{{myCount}}</div>`
+        })
+        const vm = app.mount('#root')
+    </script>
+</body>
+</html>

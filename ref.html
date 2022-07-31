@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        //v-once 讓某個元素指渲染一次
+        //ref 用來獲取 DOM 節點 / 組件引用的一個語法
+        const app =Vue.createApp({
+            data() {
+                return {
+                    count : 1
+                }
+            },
+            mounted() {
+                console.log(this.$refs.common.sayHello())
+            },
+            template:`
+                <div >
+                    <common-item ref="common" />
+                </div>
+            `
+        });
+        app.component('common-item',{
+            methods:{
+                sayHello(){
+                    alert('hello');
+                }
+            },
+            template:`
+                <div>hello world</div>
+            `
+        })
+        const vm = app.mount('#root');
+
+    </script>
+</body>
+</html>

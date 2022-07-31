@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        //input,textarea,checkbox,radio,select
+        //修飾福 .lazy,.number,.trim
+        const app = Vue.createApp({
+            data(){
+                return{
+                    message:"hello",
+                    options:[{
+                        text:"A",value:{value:"A"}
+                    },{
+                        text:"B",value:"B"
+                    },{
+                        text:"C",value:"C"
+                    }]
+                }
+            },
+            //      <div>
+            //         {{message}}
+            //         <input v-model="message"/>
+            //     </div>
+            //     <div>
+            //         {{message}}
+            //         <textarea v-model="message">    
+            //     </div>
+            // <div>
+            //     {{message}}
+            //     <input type="checkbox" v-model="message" value ="jack"/> 
+            //     <input type="checkbox" v-model="message" value ="dell"/>
+            //     <input type="checkbox" v-model="message" value ="lee"/>   
+            // </div>
+            // <div>
+            //     {{message}}
+            //     <select v-model="message" multiple>
+            //         <option disabled value="">請選擇空</option>
+            //         <option v-for="item in options" :value="item.value">{{item.text}}</option>
+            //     </select>    
+            // </div>
+            // <div>
+            //     {{message}}
+            //     <input type='checkbox' v-model="message" true-value="hello" false-value="world"/>
+            // <div>
+            // <div>
+            //     {{message}}
+            //     <input v-model.lazy="message" />    
+            // </div>
+            // <div>
+            //      {{typeof message}}
+            //      <input v-model.number="message" type="number" />    
+            // </div>
+            template:`
+                <div>
+                    {{message}}
+                    <input v-model.trim="message" />    
+                </div>
+                
+            `
+        });
+        const vm = app.mount('#root');
+    </script>
+</body>
+</html>

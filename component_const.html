@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        //組件的定義
+        //組件具有復用姓
+        //全局組件(app.component) 只要定義了 處處的可以使用 性能不高 但是使用起來簡單 建議小寫字母
+        //局部組件(const) 定義了 要註冊之後才能使用 性能比較高 使用起來麻煩 建議大寫字母開頭 駝峰命名
+        //局部組件使用時 要做一個名字合組建間的映射對象 不寫映射 VUE底層會自動嘗試做映射
+        const Counter = {
+            data(){
+                return{
+                    count:1
+                }
+            },
+            template:`<div @click="count++">{{count}}</div>`
+        }
+        const HelloWorld = {
+            data(){
+                return{
+                    count:1
+                }
+            },
+            template:`<div>helloWorld</div>`
+        }
+        const app = Vue.createApp({
+            // components:{counter:counter},
+            components:{Counter,HelloWorld},
+            template:`
+            <div>
+                <HelloWorld />
+                <Counter />
+            </div>`
+        });
+        // app.component('hello',{
+        //     data(){
+        //         return{
+        //             count:1
+        //         }
+        //     },
+        //     template:`<div @click="count++">{{count}}</div>`
+        // });
+        // app.component('counter-parent',{
+        //     template:`<hello/>`
+        // });
+
+
+        const vm = app.mount("#root");
+    </script>
+</body>
+</html>

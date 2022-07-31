@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .v-enter-from,.v-leave-to{
+            opacity: 0;
+        }
+        .v-enter-active,.v-leave-active{
+            transition:opacity 1s ease;
+        }
+        .v-enter-to,.v-leave-from{
+            opacity: 1;
+        }
+
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        const ComponentA = {
+            template:`<div>hello world</div>`
+        }
+        const ComponentB = {
+            template:`<div>bye world</div>`
+        }
+        const app = Vue.createApp({
+            data() {
+                return {
+                    show:true,
+                    components : 'component-a'
+                }
+            },
+            methods: {
+                handleClick(){
+                    this.show = !this.show;
+                    this.components = this.components === 'component-a'?'component-b':'component-a';
+                }
+            },
+            components:{
+                'component-a':ComponentA,
+                'component-b':ComponentB,
+            },
+            template:`
+                <div>
+                    <transition mode="out-in" appear>
+                        <component :is="components">
+                    </transition>
+                    <button @click="handleClick">切換</button>
+                </div>
+            `
+        });
+        const vm = app.mount('#root');
+    </script>
+</body>
+</html>

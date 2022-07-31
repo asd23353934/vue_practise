@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* @keyframes leftToRight{
+            0%{
+                transform:translateX(-100px);
+            }
+            50%{
+                transform:translateX(-50px);
+            }
+            100%{
+                transform:translateX(0px);
+            }
+        }
+        .animation{
+            animation:leftToRight 3s;
+        } */
+        .transition{
+            transition: 3s background-color ease;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .green{
+            background-color: green;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        //過度 動畫
+        const app = Vue.createApp({
+            data() {
+                return {
+                    animate:{
+                        transition:true,
+                        blue:true,
+                        green:false
+                    },
+                    styleObj: {
+                        background : "blue"
+                    }
+                }
+            },
+            methods:{
+                handleClick(){
+                    this.animate.blue = !this.animate.blue;
+                    this.animate.green = !this.animate.green;
+                },
+                handleClick1(){
+                    this.styleObj.background = this.styleObj.background === "blue"?"green":"blue";
+                }
+            },
+            template:`
+             <div class="transition" :style="styleObj">hello world</div>
+             <button @click="handleClick1">切換</button>
+            `
+        });
+        app.component('')
+        const vm = app.mount('#root');
+    </script>
+</body>
+</html>

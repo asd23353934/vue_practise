@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        //生命週期函數 : 某一時刻會自動執行的函數
+        const app = Vue.createApp({
+            data(){
+                return{
+                    message : 'hello world'
+                }
+            },
+            //在實際生成之前會自動執行的函數
+            beforeCreate() {
+                console.log("第一初始化後執行")
+            },
+            //在實際生成之後會自動執行的函數
+            created() {
+                console.log("第二初始化後執行")
+            },
+            // mounted(){
+            //     alert('click')
+            // },
+            beforeMount() {
+                console.log(document.getElementById('root').innerHTML,"判斷template是否存在之後執行&&在組件內容被渲染到頁面之前自動執行的函數")
+            },
+            mounted() {
+                console.log(document.getElementById('root').innerHTML,'在組件內容被渲染到頁面之後自動執行的函數')
+            },
+            beforeUpdate() {
+                console.log(document.getElementById('root').innerHTML,'當data中數據變化時執行,會自動執行的函數')
+            },
+            updated(){
+                console.log(document.getElementById('root').innerHTML,'當data中數據變化,頁面重新渲染,會自動執行的函數')
+            },
+            beforeUnmount() {
+                console.log(document.getElementById('root').innerHTML,'當vue應用失效時,自動執行的函數')
+            },
+            unmounted() {
+                console.log(document.getElementById('root').innerHTML,'當vue應用失效時,且DOM完全銷毀後,自動執行的函數')
+            },
+            template : '<div>{{message}}</div>'
+        });
+        const vm = app.mount('#root');
+    </script>
+</body>
+
+</html>

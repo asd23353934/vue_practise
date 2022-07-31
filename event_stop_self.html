@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        //event , $event
+        //事件修飾福:stop,prevent,capture,self,once,passive
+        //按鍵修飾福:enter,delete,tab,esc,up,down
+        //鼠標修飾福:left,right,middle
+        //精確修飾福:exact
+        const app = Vue.createApp({
+            data() {
+                return {
+                    counter : 0
+                }
+            },
+            methods: {
+                handleBtnClick(num,event){
+                    console.log(event);
+                    this.counter+=num;
+                },
+                handleBtnClick1(num,event){
+                    alert("hi")
+                },
+                handleBtnClick2(){
+                    this.counter+=1;
+                },
+                handleKeyDown(){
+                    console.log("123")
+                },
+                handleClick(){
+                    console.log('click')
+                }
+            },
+            template: `
+                <div>
+                    
+                    <button @click="handleBtnClick(2,$event)">button</button>
+
+                    <div @click="handleBtnClick1">
+                        {{counter}}
+                        <button @click.stop="handleBtnClick2">button</button>
+                    </div>
+
+                    <div @click.self="handleBtnClick1">
+                        {{counter}}
+                        <button @click="handleBtnClick2">button</button>
+                    </div>
+
+                    <div>
+                        <input @keydown.enter="handleKeyDown"/>
+                    </div>
+                    <div>
+                        <div @click.ctrl.exact="handleClick">123</div>
+                    </div>
+                </div>
+            `
+        })
+        const vm = app.mount('#root');
+    </script>
+</body>
+
+</html>

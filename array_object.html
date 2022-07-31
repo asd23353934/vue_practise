@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    listArray:['dell','lee','teacher'],
+                    listObject:{
+                        firstName:'dell',
+                        lastName:'lee',
+                        job:'teacher'
+                    }
+                }
+            },
+            methods: {
+                handleAddClick(){
+                    // this.listArray.push("hi")
+                    // this.listArray.pop();
+                    // this.listArray.shift();
+                    // this.listArray.unshift("HII");
+                    // this.listArray.reverse();
+
+                    // this.listArray = ['bye','world']
+                    // this.listArray = ['bye'].concat(['world']);
+                    // this.listArray = ['bye','world'].filter(item => item === 'bye')
+
+                    // this.listArray[1] = 'hello'
+
+                    this.listObject.age = 100;
+                }
+            },
+            template: `
+            <template v-for="(val,key,index) of listObject" :key="index">
+                <div v-if="key !== 'lastName'">
+                    {{val}} -- {{key}}
+                </div> 
+            </template>
+
+            <div v-for="item of 10">{{item}}</div>
+            <button @click="handleAddClick">新增</button>
+            `
+        })
+        const vm = app.mount('#root');
+    </script>
+</body>
+
+</html>

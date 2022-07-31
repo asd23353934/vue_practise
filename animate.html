@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Document</title>
+    <style>
+        /* @keyframes shake {
+            0%{
+                transform:translateX(-100px);
+            }
+            50%{
+                transform:translateX(-50px);
+            }
+            100%{
+                transform:translateX(0px);
+            }
+        } */
+        /* .hello{
+            animation : shake 3s ;
+        }
+        .bye{
+            animation : shake 3s ;
+        } */
+        /* .v-enter-from{
+            color: red;
+        }
+        .v-enter-active{
+            animation : shake 3s;
+            transition : color 10s ease-in;
+        }
+        .v-leave-active{
+            color: red;
+            animation:shake 3s;
+            transition:all 10s ease-in;
+        } */
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+   <script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                show:false
+            }
+        },
+        methods: {
+            handleClick(){
+                this.show = !this.show
+            },
+            handleBeforeEnter(event){
+                event.style.color = "red"
+            },
+            handleEnterActive(event,done){
+                //done 通知動畫結束
+                const animate = setInterval(()=>{
+                    const color = event.style.color;
+                    if(color === "red"){
+                        event.style.color = "green";
+                    }else{
+                        event.style.color = "red";
+                    }
+                },1000);
+                setTimeout(()=>{
+                    clearInterval(animate);
+                    done();
+                },5000)
+            },
+            handleEnterEnd(){
+                alert(123);
+            },
+            handleBeforeLeave(event){
+                event.style.color = "red"
+            },
+            handleLeaveActive(event,done){
+                const animate = setInterval(()=>{
+                    const color = event.style.color;
+                    if(color === "red"){
+                        event.style.color = "green";
+                    }else{
+                        event.style.color = "red";
+                    }
+                },1000);
+                setTimeout(()=>{
+                    clearInterval(animate);
+                    done();
+                },6000)
+            },
+            handleLeaveEnd(){
+                alert(456);
+            }
+        },
+        // template:`
+        //     <div>
+        //         <transition 
+        //             enter-from-class=""
+        //             enter-to-class=""
+        //             enter-active-class="animate__animated animate__backInDown"
+        //             leave-from-class=""
+        //             leave-to-class=""
+        //             leave-active-class="animate__animated animate__flash"
+        //         >
+        //              <div v-show="show">hello world</div>
+        //         </transition>
+        //         <button @click="handleClick">切換</button>
+        //     </div>
+        // `
+        // template:`
+        //     <div>
+        //         <transition :duration="1000">
+        //             <div v-show="show">hello world</div>
+        //         </transition>
+        //         <button @click="handleClick">切換</button>
+        //     </div>
+        // `
+        // template:`
+        //     <div>
+        //         <transition :duration="{enter:1000,leave:3000}">
+        //             <div v-show="show">hello world</div>
+        //         </transition>
+        //         <button @click="handleClick">切換</button>
+        //     </div>
+        // `
+        template:`
+            <div>
+                <transition 
+                    :css=false
+                    @before-enter="handleBeforeEnter"
+                    @enter="handleEnterActive"
+                    @after-enter="handleEnterEnd"
+                    @before-leave="handleBeforeLeave"
+                    @leave="handleLeaveActive"
+                    @after-leave="handleLeaveEnd"
+                >
+                    <div v-show="show">hello world</div>
+                </transition>
+                <button @click="handleClick">切換</button>
+            </div>
+        `
+    });
+    const vm = app.mount('#root');
+   </script> 
+</body>
+</html>
