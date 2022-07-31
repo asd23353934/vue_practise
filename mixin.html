@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+   
+    <script>
+         //mixin 混入
+         //組件 data, methods 優先及高於 mixin data, methods 優先及
+         //生命週期函數 先執行 mixin 裡面的 在執行組件裡面的
+        const myMixin = {
+            data(){
+                return {
+                    number:2,
+                    count:10
+                }
+            },
+            mounted() {
+               console.log("mixin") 
+            },
+            methods:{
+                handleClick(){
+                    console.log("mixin handleClick");
+                }
+            }
+        }
+
+         const app =Vue.createApp({
+            data() {
+                return {
+                    number : 1
+                }
+            },
+            mounted(){
+                console.log("create")
+            },
+            mixins: [myMixin],
+            methods:{
+                // handleClick(){
+                //     console.log('handleClick')
+                // }
+            },
+            template:`
+                <div>
+                    <div>{{number}} {{count}}</div>
+                    <child />
+                    <button @click="handleClick">增加</button>    
+                </div>
+            `
+         });
+         app.component('child',{
+            mixins: [myMixin],
+            template:`
+                <div>{{count}}</div>
+            `
+         });
+        //  app.mixin({
+        //     data(){
+        //         return {
+        //             number:2,
+        //             count:10
+        //         }
+        //     },
+        //     mounted() {
+        //        console.log("mixin") 
+        //     },
+        //     methods:{
+        //         handleClick(){
+        //             console.log("mixin handleClick");
+        //         }
+        //     }
+        // })
+         const vm = app.mount('#root');
+    </script>
+</body>
+</html>
